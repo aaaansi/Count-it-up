@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 /**
  * CountItUp is a program that deals with counting factorials of given numbers
@@ -8,26 +10,30 @@ import java.util.Scanner;
  */
 public class CountItUp {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        long n = sc.nextLong();
-        long k = sc.nextLong();
-        long deduction = n - k;
-        System.out.println(factorial(n) / (factorial(deduction) * factorial(k)));
-        // System.out.println((int) factorial(52));
-        // System.out.println(factorial(5));
-        // System.out.println(factorial(52) / factorial(5));
-
-        double value = 8.0658175e+67;
-        long[] arrayValue = storeValue(value);
-        long divisor = 120;
-        // long[] quotient = divide(arrayValue, divisor);
-        // long[] arrayValue = {
-        // 80658175000000000000000000000000000000000000000000000000000000000000000000L
-        // };
-        long[] quotientArray = divide(arrayValue, 120);
-        long quotient = convertToLong(quotientArray);
-        // System.out.println(quotient);
-        sc.close();
+        Scanner scanner = null;
+        if (args.length > 0) {
+            try {
+                scanner = new Scanner(new File(args[0]));
+            } catch (FileNotFoundException e) {
+                System.err.println("File not found: " + args[0]);
+                System.exit(1);
+            }
+        } else { // otherwise, use standard input
+            scanner = new Scanner(System.in);
+        }
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            String[] parts = line.split(" ");
+            int n = Integer.parseInt(parts[0]);
+            int k = Integer.parseInt(parts[1]);
+            long deduction = n - k;
+            // System.out
+            // .println(n + " " + k + " = " + factorial(n) / (factorial(deduction) *
+            // factorial(k)));
+            System.out
+                    .println(factorial(n) / (factorial(deduction) * factorial(k)));
+        }
+        scanner.close();
     }
 
     // factorial method takes a long parameter n, and returns the factorial of that
