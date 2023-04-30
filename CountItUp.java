@@ -11,6 +11,8 @@ import java.io.FileNotFoundException;
 public class CountItUp {
     public static void main(String[] args) {
         Scanner scanner = null;
+
+        System.out.println(Long.MAX_VALUE);
         if (args.length > 0) {
             try {
                 scanner = new Scanner(new File(args[0]));
@@ -18,6 +20,7 @@ public class CountItUp {
                 System.err.println("File not found: " + args[0]);
                 System.exit(1);
             }
+
         } else { // otherwise, use standard input
             scanner = new Scanner(System.in);
         }
@@ -27,23 +30,27 @@ public class CountItUp {
             int n = Integer.parseInt(parts[0]);
             int k = Integer.parseInt(parts[1]);
             long deduction = n - k;
+            factorial(n);
             // System.out
             // .println(n + " " + k + " = " + factorial(n) / (factorial(deduction) *
             // factorial(k)));
-            System.out
-                    .println(factorial(n) / (factorial(deduction) * factorial(k)));
+            // System.out
+            // .println(factorial(n) / (factorial(deduction) * factorial(k)));
         }
         scanner.close();
     }
 
     // factorial method takes a long parameter n, and returns the factorial of that
-    // number as a long type.
+    // number as a long type using recursion to calculate the factorial.
     public static long factorial(long n) {
-        if (n == 0) {
+        long rs = 1;
+        if (n < 2)
             return 1;
-        } else {
-            return n * factorial(n - 1);
+        for (int i = 2; i <= n; i++) {
+            rs *= i;
+            System.out.println(rs);
         }
+        return rs;
     }
 
     /*
@@ -111,6 +118,29 @@ public class CountItUp {
             result = result * (long) Math.pow(10, 9) + array[i];
         }
         return result;
+    }
+
+    /*
+     * CHATGPT --> multiplyWithOverflow method multiplies two long values a and b
+     * and returns the exact value that caused an overflow. If an overflow occurs
+     * during the multiplication, the method sets the carry variable to the value
+     * that caused the overflow. The carry variable is computed by comparing the
+     * unsigned value of b to either 0x8000000000000000L (the absolute value of
+     * Long.MIN_VALUE) if a is negative, or to Long.MAX_VALUE if a is positive.
+     * 
+     * To obtain the exact value that caused the overflow, the method subtracts the
+     * product of the carry and Long.MAX_VALUE from the result of the
+     * multiplication. This gives the maximum value that can be stored in a long
+     * data type without overflowing, plus the value that caused the overflow.
+     */
+    public static long multiplyWithOverflow(long a, long b) {
+        long result = a * b;
+        long carry = 0;
+        if ((a != 0 && result / a != b) || (a == Long.MIN_VALUE && b == -1)) {
+            // Overflow occurred
+            carry = a < 0 ? Long.compareUnsigned(b, 0x8000000000000000L) : Long.compareUnsigned(b, Long.MAX_VALUE);
+        }
+        return result - carry * Long.MAX_VALUE - carry;
     }
 
 }
