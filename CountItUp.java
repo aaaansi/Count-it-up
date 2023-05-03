@@ -16,8 +16,10 @@ public class CountItUp {
         Scanner scanner = null;
         int n;
         int k;
+        int deduction;
         int[] arrN = new int[SIZE];
         int[] arrK = new int[SIZE];
+        int[] arrDeduction = new int[SIZE];
         // System.out.println(Long.MAX_VALUE);
         if (args.length > 0) {
             try {
@@ -33,31 +35,47 @@ public class CountItUp {
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             String[] parts = line.split(" ");
-            n = Integer.parseInt(parts[0]);
-            k = Integer.parseInt(parts[1]);
+            try {
+                n = Integer.parseInt(parts[0]);
+                k = Integer.parseInt(parts[1]);
+                deduction = n - k;
+                Arrays.fill(arrN, 0);
+                arrN[0] = 1;
+                // First for loop cycle to calculate factorial of n
+                for (int i = 1; i <= n; i++) {
+                    factorial(arrN, i); // arr = arr * i. Initially arr was 1.
+                }
+                // System.out.println(Long.MAX_VALUE);
+                // System.out.println(Integer.MAX_VALUE);
+                // System.out.println("-------");
+                // print(arrN);
 
-            Arrays.fill(arrN, 0);
-            arrN[0] = 1;
-            // First for loop cycle to calculate factorial of n
-            for (int i = 1; i <= n; i++) {
-                factorial(arrN, i); // arr = arr * i. Initially arr was 1.
+                Arrays.fill(arrK, 0);
+                arrK[0] = 1;
+                // Second for loop cycle to calculate factorial of k
+                for (int i = 1; i <= k; i++) {
+                    factorial(arrK, i); // arr = arr * i. Initially arr was 1.
+                }
+                Arrays.fill(arrDeduction, 0);
+                arrDeduction[0] = 1;
+                // First for loop cycle to calculate factorial of n
+                for (int i = 1; i <= deduction; i++) {
+                    factorial(arrDeduction, i); // arr = arr * i. Initially arr was 1.
+                }
+            } catch (NumberFormatException e) {
+                System.err.println("Not a valid integer");
             }
-            System.out.println(Long.MAX_VALUE);
-            System.out.println("-------");
-            // print(arrN);
 
-            Arrays.fill(arrK, 0);
-            arrK[0] = 1;
-            // Second for loop cycle to calculate factorial of k
-            for (int i = 1; i <= k; i++) {
-                factorial(arrK, i); // arr = arr * i. Initially arr was 1.
-            }
-            System.out.println(toStringValue(arrN));
-            System.out.println(toStringValue(arrK));
-
-            System.out.println("-----------");
-
-            System.out.println(multiply(toStringValue(arrK), toStringValue(arrN)));
+            String multiple = multiply(toStringValue(arrN), toStringValue(arrK));
+            // String minus = subtract(toStringValue(arrN), toStringValue(arrK));
+            // String divison = longDivision(toStringValue(arrN), toStringValue(arrK));
+            // String result = longDivision(toStringValue(arrN),
+            // multiply(toStringValue(arrK), toStringValue(arrDeduction)));
+            // System.out.println(toStringValue(arrN));
+            // System.out.println(multiple);
+            // System.out.println(minus);
+            // System.out.println(divison);
+            // System.out.println(result);
         }
         scanner.close();
     }
@@ -131,18 +149,4 @@ public class CountItUp {
         // System.out.println();
         return val;
     }
-
-    // factorial method takes a long parameter n, and returns the factorial of that
-    // number as a long type using recursion to calculate the factorial.
-    public static long basicFactorial(long n) {
-        long rs = 1;
-        if (n < 2)
-            return 1;
-        for (int i = 2; i <= n; i++) {
-            rs *= i;
-            System.out.println(rs);
-        }
-        return rs;
-    }
-
 }
