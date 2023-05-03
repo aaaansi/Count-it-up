@@ -113,6 +113,52 @@ public class CountItUp {
         return product;
     }
 
+    public static String longDivision (String numeratior, String denominator){
+
+        // Convert the input strings to character arrays
+        char[] numArr = numerator.toCharArray();
+        char[] denomArr = denominator.toCharArray();
+
+        // Initialize variables for the long division algorithm
+        int numIndex = 0;
+        StringBuilder quotient = new StringBuilder();
+        long remainder = 0;
+
+        // Loop through the digits of the numerator
+        while (numIndex < numArr.length){
+            // Append the next digit to the remainder
+            remainder = remainder * 10 + Character.getNumericValue(numArr[numIndex]);
+            numIndex++;
+
+            // Perform long division if there is enough room in the remainder
+            if (remainder >= Long.parseLong(denominator)){
+                
+                // Divide the remainder by the denominator
+                long div = 0;
+                while (remainder >= Long.parseLong(denominator)){
+                    remainder -= Long.parseLong(denominator);
+                    div++;
+                }
+                quotient.append(div);
+            } else {
+                quotient.append('0');
+            }
+        }
+
+        // Remove leading zeroes from the quotient
+        int i = 0;
+        while (i < quotient.length() && quotient.charAt(i) == '0'){
+            i++;
+        }
+        if (i == quotient.length()){
+            return "0";
+        } else {
+            return quotient.substring(i);
+        }
+        
+
+    }
+
     // This module prints the number stored in arr. Maximum size can be SIZE.
     public static String toStringValue(int[] arr) {
         int flag = 0;
