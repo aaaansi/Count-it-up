@@ -35,33 +35,37 @@ public class CountItUpFalse {
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             String[] parts = line.split(" ");
-            n = Integer.parseInt(parts[0]);
-            k = Integer.parseInt(parts[1]);
-            deduction = n - k;
+            try {
+                n = Integer.parseInt(parts[0]);
+                k = Integer.parseInt(parts[1]);
+                deduction = n - k;
+                Arrays.fill(arrN, 0);
+                arrN[0] = 1;
+                // First for loop cycle to calculate factorial of n
+                for (int i = 1; i <= n; i++) {
+                    factorial(arrN, i); // arr = arr * i. Initially arr was 1.
+                }
+                // System.out.println(Long.MAX_VALUE);
+                // System.out.println(Integer.MAX_VALUE);
+                // System.out.println("-------");
+                // print(arrN);
 
-            Arrays.fill(arrN, 0);
-            arrN[0] = 1;
-            // First for loop cycle to calculate factorial of n
-            for (int i = 1; i <= n; i++) {
-                factorial(arrN, i); // arr = arr * i. Initially arr was 1.
+                Arrays.fill(arrK, 0);
+                arrK[0] = 1;
+                // Second for loop cycle to calculate factorial of k
+                for (int i = 1; i <= k; i++) {
+                    factorial(arrK, i); // arr = arr * i. Initially arr was 1.
+                }
+                Arrays.fill(arrDeduction, 0);
+                arrDeduction[0] = 1;
+                // First for loop cycle to calculate factorial of n
+                for (int i = 1; i <= deduction; i++) {
+                    factorial(arrDeduction, i); // arr = arr * i. Initially arr was 1.
+                }
+            } catch (NumberFormatException e) {
+                System.err.println("Not a valid integer");
             }
-            // System.out.println(Long.MAX_VALUE);
-            // System.out.println(Integer.MAX_VALUE);
-            // System.out.println("-------");
-            // print(arrN);
 
-            Arrays.fill(arrK, 0);
-            arrK[0] = 1;
-            // Second for loop cycle to calculate factorial of k
-            for (int i = 1; i <= k; i++) {
-                factorial(arrK, i); // arr = arr * i. Initially arr was 1.
-            }
-            Arrays.fill(arrDeduction, 0);
-            arrDeduction[0] = 1;
-            // First for loop cycle to calculate factorial of n
-            for (int i = 1; i <= deduction; i++) {
-                factorial(arrDeduction, i); // arr = arr * i. Initially arr was 1.
-            }
             // System.out.println(toStringValue(arrN));
             // System.out.println(toStringValue(arrK));
             // System.out.println(toStringValue(arrDeduction));
