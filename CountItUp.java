@@ -113,7 +113,7 @@ public class CountItUp {
         return product;
     }
 
-    public static String longDivision (String numeratior, String denominator){
+    public static String longDivision (String numerator, String denominator){
 
         // Convert the input strings to character arrays
         char[] numArr = numerator.toCharArray();
