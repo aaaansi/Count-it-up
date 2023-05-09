@@ -12,7 +12,7 @@ public class CountItUpFalse {
 
         long result = binomial(n, k);
 
-        System.out.println("The value of " + n + "C" + k + " is " + result);
+        System.out.println(result);
     }
 
     private static long binomial(long n, long k) {
