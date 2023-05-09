@@ -35,47 +35,44 @@ public class CountItUp {
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             String[] parts = line.split(" ");
-            try {
-                n = Integer.parseInt(parts[0]);
-                k = Integer.parseInt(parts[1]);
-                deduction = n - k;
-                Arrays.fill(arrN, 0);
-                arrN[0] = 1;
-                // First for loop cycle to calculate factorial of n
-                for (int i = 1; i <= n; i++) {
-                    factorial(arrN, i); // arr = arr * i. Initially arr was 1.
-                }
-                // System.out.println(Long.MAX_VALUE);
-                // System.out.println(Integer.MAX_VALUE);
-                // System.out.println("-------");
-                // print(arrN);
+            n = (int) Double.parseDouble(parts[0]);
+            k = (int) Double.parseDouble(parts[1]);
+            deduction = n - k;
+            Arrays.fill(arrN, 0);
+            arrN[0] = 1;
+            // First for loop cycle to calculate factorial of n
+            for (int i = 1; i <= n; i++) {
+                factorial(arrN, i); // arr = arr * i. Initially arr was 1.
+            }
+            System.out.println(Long.MAX_VALUE);
+            // System.out.println(Integer.MAX_VALUE);
+            // System.out.println("-------");
+            // print(arrN);
 
-                Arrays.fill(arrK, 0);
-                arrK[0] = 1;
-                // Second for loop cycle to calculate factorial of k
-                for (int i = 1; i <= k; i++) {
-                    factorial(arrK, i); // arr = arr * i. Initially arr was 1.
-                }
-                Arrays.fill(arrDeduction, 0);
-                arrDeduction[0] = 1;
-                // First for loop cycle to calculate factorial of n
-                for (int i = 1; i <= deduction; i++) {
-                    factorial(arrDeduction, i); // arr = arr * i. Initially arr was 1.
-                }
-            } catch (NumberFormatException e) {
-                System.err.println("Not a valid integer");
+            Arrays.fill(arrK, 0);
+            arrK[0] = 1;
+            // Second for loop cycle to calculate factorial of k
+            for (int i = 1; i <= k; i++) {
+                factorial(arrK, i); // arr = arr * i. Initially arr was 1.
+            }
+            Arrays.fill(arrDeduction, 0);
+            arrDeduction[0] = 1;
+            // First for loop cycle to calculate factorial of n
+            for (int i = 1; i <= deduction; i++) {
+                factorial(arrDeduction, i); // arr = arr * i. Initially arr was 1.
             }
 
             String multiple = multiply(toStringValue(arrN), toStringValue(arrK));
             // String minus = subtract(toStringValue(arrN), toStringValue(arrK));
             // String divison = longDivision(toStringValue(arrN), toStringValue(arrK));
-            // String result = longDivision(toStringValue(arrN),
-            // multiply(toStringValue(arrK), toStringValue(arrDeduction)));
+            System.out.println(toStringValue(arrN));
+            String result = longDivision(toStringValue(arrN),
+                    multiply(toStringValue(arrK), toStringValue(arrDeduction)));
             // System.out.println(toStringValue(arrN));
             // System.out.println(multiple);
             // System.out.println(minus);
             // System.out.println(divison);
-            // System.out.println(result);
+            System.out.println(result);
         }
         scanner.close();
     }
@@ -131,7 +128,7 @@ public class CountItUp {
         return product;
     }
 
-    public static String longDivision (String numerator, String denominator){
+    public static String longDivision(String numerator, String denominator) {
 
         // Convert the input strings to character arrays
         char[] numArr = numerator.toCharArray();
@@ -143,17 +140,17 @@ public class CountItUp {
         long remainder = 0;
 
         // Loop through the digits of the numerator
-        while (numIndex < numArr.length){
+        while (numIndex < numArr.length) {
             // Append the next digit to the remainder
             remainder = remainder * 10 + Character.getNumericValue(numArr[numIndex]);
             numIndex++;
 
             // Perform long division if there is enough room in the remainder
-            if (remainder >= Long.parseLong(denominator)){
-                
+            if (remainder >= Long.parseLong(denominator)) {
+
                 // Divide the remainder by the denominator
                 long div = 0;
-                while (remainder >= Long.parseLong(denominator)){
+                while (remainder >= Long.parseLong(denominator)) {
                     remainder -= Long.parseLong(denominator);
                     div++;
                 }
@@ -165,15 +162,14 @@ public class CountItUp {
 
         // Remove leading zeroes from the quotient
         int i = 0;
-        while (i < quotient.length() && quotient.charAt(i) == '0'){
+        while (i < quotient.length() && quotient.charAt(i) == '0') {
             i++;
         }
-        if (i == quotient.length()){
+        if (i == quotient.length()) {
             return "0";
         } else {
             return quotient.substring(i);
         }
-        
 
     }
 
