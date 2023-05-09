@@ -1,13 +1,41 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 public class CountItUpFalse {
+    public static long nChooseK(long n, long k) {
+        if (k == 0 || k == n) {
+            return 1L;
+        } else if (k == 1 || k == n - 1) {
+            return n;
+        }
+
+        long numerator = 1L;
+        long denominator = 1L;
+
+        for (long i = 1L; i <= k; i++) {
+            long gcd = gcd(numerator, i);
+            numerator /= gcd;
+            long j = (n - i + 1) / (i / gcd);
+            long gcd2 = gcd(denominator, j);
+            denominator /= gcd2;
+            numerator *= j / gcd2;
+        }
+
+        return numerator;
+    }
+
+    public static long gcd(long a, long b) {
+        while (b != 0) {
+            long t = b;
+            b = a % b;
+            a = t;
+        }
+        return a;
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        long result = 0;
         if (args.length > 0) {
             try {
                 sc = new Scanner(new File(args[0]));
@@ -20,29 +48,11 @@ public class CountItUpFalse {
             sc = new Scanner(System.in);
         }
         while (sc.hasNextLine()) {
-            String[] input = sc.nextLine().split(" ");
-            long n = Long.parseLong(input[0]);
-            long k = Long.parseLong(input[1]);
-
-            result = binomial(n, k);
+            String[] line = sc.nextLine().split(" ");
+            Long n = Long.parseLong(line[0]);
+            Long k = Long.parseLong(line[1]);
+            long result = nChooseK(n, k);
             System.out.println(result);
         }
-
-        sc.close();
-    }
-
-    private static long binomial(long n, long k) {
-        if (k > n - k) {
-            k = n - k;
-        }
-
-        long res = 1;
-
-        for (long i = 0; i < k; i++) {
-            res *= (n - i);
-            res /= (i + 1);
-        }
-
-        return res;
     }
 }
