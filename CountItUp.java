@@ -23,6 +23,7 @@ public class CountItUp {
             long result = nChooseK(n, k);
             System.out.println(result);
         }
+        sc.close();
     }
 
     public static long nChooseK(long n, long k) {
