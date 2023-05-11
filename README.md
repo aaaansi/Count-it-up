@@ -8,4 +8,4 @@
   - Java CountItUp
   - or passing in a text file --> Java CountItUp < *.txt
 ## Report
-[Benchmarking Report](C:/Users/Hamzah/Desktop/COSC326/etudes-PAIR/etude6/CountItUpReport.pdf)
+[Benchmarking Report](./CountItUpReport.pdf)
